@@ -22,10 +22,15 @@ import * as React from "react";
 import { useState } from "react";
 import { LightboxProps } from "../../components/Lightbox";
 import { OEQItemSummaryPageButton } from "../../components/OEQItemSummaryPageButton";
+import {
+  withErrorMessageDialog,
+  WithErrorMessageDialogProps,
+} from "../../components/WithErrorMessageDialog";
 import { DrmAcceptanceDialog } from "../../drm/DrmAcceptanceDialog";
 import {
   acceptDrmTerms,
   defaultDrmStatus,
+  listDrmViolationsInTask,
   listDrmTerms,
 } from "../../modules/DrmModule";
 import {
@@ -87,7 +92,8 @@ export const GallerySearchItemTiles = ({
   },
   lightboxEntries,
   setLightboxProps,
-}: GallerySearchTileProps) => {
+  setMessages,
+}: GallerySearchTileProps & WithErrorMessageDialogProps) => {
   const classes = useStyles();
   const itemName = name ?? uuid;
 
@@ -166,7 +172,18 @@ export const GallerySearchItemTiles = ({
           <OEQItemSummaryPageButton
             title={viewItem}
             color="secondary"
-            item={{ uuid, version, drm: { drmStatus, setOnDrmAcceptCallback } }}
+            item={{
+              uuid,
+              version,
+              drm: {
+                drmStatus,
+                setOnDrmAcceptCallback,
+                onDrmViolation: () =>
+                  listDrmViolationsInTask(uuid, version, (violation: string) =>
+                    setMessages([violation])
+                  ),
+              },
+            }}
           />
         }
       />
@@ -209,3 +226,6 @@ export const GallerySearchItemTiles = ({
     </>
   );
 };
+
+export const GallerySearchItemTilesWithErrorDialog =
+  withErrorMessageDialog<GallerySearchTileProps>(GallerySearchItemTiles);

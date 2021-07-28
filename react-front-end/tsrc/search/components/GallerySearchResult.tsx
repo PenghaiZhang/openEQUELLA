@@ -21,7 +21,7 @@ import { useState } from "react";
 import Lightbox, { LightboxProps } from "../../components/Lightbox";
 import { GallerySearchResultItem } from "../../modules/GallerySearchModule";
 import { LightboxEntry } from "../../modules/ViewerModule";
-import { GallerySearchItemTiles } from "./GallerySearchItemTiles";
+import { GallerySearchItemTilesWithErrorDialog } from "./GallerySearchItemTiles";
 
 export interface GallerySearchResultProps {
   /**
@@ -55,7 +55,7 @@ const GallerySearchResult = ({ items }: GallerySearchResultProps) => {
 
   const mapItemsToTiles = () =>
     items.map((item) => (
-      <GallerySearchItemTiles
+      <GallerySearchItemTilesWithErrorDialog
         item={item}
         lightboxEntries={lightboxEntries}
         setLightboxProps={setLightboxProps}

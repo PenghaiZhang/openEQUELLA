@@ -58,6 +58,10 @@ export interface OEQItemSummaryPageButtonProps {
        * Function to update the callback called after DRM terms are accepted.
        */
       setOnDrmAcceptCallback: (_: (() => void) | undefined) => void;
+      /**
+       * Function to list and display DRM violdations.
+       */
+      onDrmViolation: () => void;
     };
   };
   /**

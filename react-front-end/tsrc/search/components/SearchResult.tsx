@@ -44,10 +44,15 @@ import { OEQLink } from "../../components/OEQLink";
 import OEQThumb from "../../components/OEQThumb";
 import { StarRating } from "../../components/StarRating";
 import { TooltipIconButton } from "../../components/TooltipIconButton";
+import {
+  withErrorMessageDialog,
+  WithErrorMessageDialogProps,
+} from "../../components/WithErrorMessageDialog";
 import { DrmAcceptanceDialog } from "../../drm/DrmAcceptanceDialog";
 import {
   acceptDrmTerms,
   defaultDrmStatus,
+  listDrmViolationsInTask,
   listDrmTerms,
 } from "../../modules/DrmModule";
 import { routes } from "../../mainui/routes";
@@ -151,7 +156,8 @@ export default function SearchResult({
   handleError,
   highlights,
   item,
-}: SearchResultProps) {
+  setMessages,
+}: SearchResultProps & WithErrorMessageDialogProps) {
   const {
     name,
     version,
@@ -448,3 +454,6 @@ export default function SearchResult({
     </>
   );
 }
+
+export const SearchResultWithErrorDialog =
+  withErrorMessageDialog<SearchResultProps>(SearchResult);

@@ -45,7 +45,7 @@ import {
 } from "./ExportSearchResultLink";
 import SearchOrderSelect, { SearchOrderSelectProps } from "./SearchOrderSelect";
 import { SearchPagination, SearchPaginationProps } from "./SearchPagination";
-import SearchResult from "./SearchResult";
+import { SearchResultWithErrorDialog } from "./SearchResult";
 
 const useStyles = makeStyles({
   transparentList: {
@@ -259,7 +259,7 @@ export const mapSearchResultItems = (
   ) => Promise<OEQ.MimeType.MimeTypeViewerDetail>
 ): React.ReactNode[] =>
   items.map((item) => (
-    <SearchResult
+    <SearchResultWithErrorDialog
       key={`${item.uuid}/${item.version}`}
       item={item}
       handleError={handleError}
